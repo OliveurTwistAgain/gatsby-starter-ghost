@@ -10,7 +10,7 @@
 -   [🧠 Optimisation SEO](#-optimisation-seo)
 -   [📝 Licence](#-licence)
 
-# 🚀 Gatsby + Ghost Starter
+## 🚀 Gatsby + Ghost Starter
 
 Un starter ultra-rapide pour tester **Ghost en mode Headless CMS** avec un front **Gatsby**, prêt à déployer sur **Netlify** ou autres plateformes.
 
@@ -22,7 +22,7 @@ Un starter ultra-rapide pour tester **Ghost en mode Headless CMS** avec un front
 
 ---
 
-# 🛠 Installation
+## 🛠 Installation
 
 ```bash
 git clone https://github.com/TryGhost/gatsby-starter-ghost.git
@@ -30,7 +30,7 @@ cd gatsby-starter-ghost
 yarn install
 ```
 
-# 🚀 Utilisation
+## 🚀 Utilisation
 
 ▶️ Lancer en local
 
@@ -38,7 +38,7 @@ yarn install
 gatsby develop
 ```
 
-# 🧪 Variables d'environnement
+## 🧪 Variables d'environnement
 
 Le starter utilise normalement un fichier .ghost.json, mais pour plus de simplicité et sécurité, on utilisera ici un fichier .env basé sur .env.example à la racine du projet. Ce fichier contient les variables nécessaires pour le bon fonctionnement du site en local et en production.
 
@@ -51,12 +51,13 @@ SITEURL=http://localhost:8000
 SITEURL_PROD=https://mon-site-en-prod.netlify.app
 ```
 
-🚀 Adaptation du code gatsby-config.js
+## 🚀 Adaptation du code gatsby-config.js
+
 Le code gatsby-config.js est adapté pour le fonctionnement de ce starter avec les variables d’environnement du projet .env, voir ci-dessus.
 
 💡 Utilisez version: "v4.0" si votre instance Ghost est < 5.x.
 
-# 🌍 Déploiement
+## 🌍 Déploiement
 
 Ce starter est compatible avec Netlify, sans omettre les autres plateformes comme Vercel, Render, ou Railway.
 
@@ -70,7 +71,7 @@ Redirections \_redirects et headers \_headers déjà configurés
 GHOST_API_URL
 GHOST_CONTENT_API_KEY
 
-# 📁 Structure du projet
+## 📁 Structure du projet
 
 Avec la commande `tree -L 1` dans le terminal WSL Ubuntu, voici les principaux dossiers et fichiers :
 
@@ -102,7 +103,7 @@ Avec la commande `tree -L 1` dans le terminal WSL Ubuntu, voici les principaux d
 ├── yarn.lock # Verrouillage des versions yarn
 ```
 
-# 🧪 Autres commandes utiles
+## 🧪 Autres commandes utiles
 
 ```bash
 # Build de production
@@ -112,13 +113,13 @@ gatsby build
 gatsby serve
 ```
 
-# 🧠 Optimisation SEO
+## 🧠 Optimisation SEO
 
 Dans Ghost Admin, activer "Make this site private" :
 
 Cela désactive le thème par défaut de Ghost, évite le duplicate content et centralise le SEO sur Gatsby
 
-# 📝 Licence
+## 📝 Licence
 
 MIT © Ghost Foundation
 
@@ -126,7 +127,7 @@ MIT © Ghost Foundation
 
 🎯 Personnalisé avec un peu de café !
 
-# 🔗 Liens utiles
+## 🔗 Liens utiles
 
 -   [Documentation officielle Ghost Content API](https://ghost.org/docs/content-api/)
 -   [Gatsby + Ghost Starter (repo original)](https://github.com/TryGhost/gatsby-starter-ghost)
