@@ -1,61 +1,41 @@
-/* eslint-disable semi */
-/* eslint-disable no-unsafe-finally */
-/* eslint-disable no-restricted-syntax */
-const path = require(`path`);
+require("dotenv").config({ path: `.env` }); // Charge les variables d'environnement
 
+const path = require(`path`);
 const config = require(`./src/utils/siteConfig`);
 const generateRSSFeed = require(`./src/utils/rss/generate-feed`);
 
-let ghostConfig;
+const {
+    GHOST_API_URL,
+    GHOST_CONTENT_API_KEY,
+    SITE_URL,
+    SITE_URL_LOCAL,
+} = process.env;
 
-try {
-    ghostConfig = require(`./.ghost`);
-} catch (e) {
-    ghostConfig = {
-        production: {
-            apiUrl: process.env.GHOST_API_URL,
-            contentApiKey: process.env.GHOST_CONTENT_API_KEY,
-        },
-    };
-} finally {
-    const { apiUrl, contentApiKey } =
-        process.env.NODE_ENV === `development`
-            ? ghostConfig.development
-            : ghostConfig.production;
-
-    if (!apiUrl || !contentApiKey || contentApiKey.match(/<key>/)) {
-        throw new Error(
-            `GHOST_API_URL and GHOST_CONTENT_API_KEY are required to build. Check the README.`
-        ); // eslint-disable-line
-    }
+if (!GHOST_API_URL || !GHOST_CONTENT_API_KEY) {
+    throw new Error(
+        `GHOST_API_URL and GHOST_CONTENT_API_KEY must be set in your .env file.`
+    );
 }
 
 if (
     process.env.NODE_ENV === `production` &&
     config.siteUrl === `http://localhost:8000` &&
-    !process.env.SITEURL
+    !SITE_URL
 ) {
     throw new Error(
-        `siteUrl can't be localhost and needs to be configured in siteConfig. Check the README.`
-    ); // eslint-disable-line
+        `In production, siteUrl must not be localhost. Set SITE_URL in your .env file or fix siteConfig.`
+    );
 }
 
-/**
- * This is the place where you can tell Gatsby which plugins to use
- * and set them up the way you want.
- *
- * Further info 👉🏼 https://www.gatsbyjs.org/docs/gatsby-config/
- *
- */
 module.exports = {
     siteMetadata: {
-        siteUrl: process.env.SITEURL || config.siteUrl,
+        siteUrl:
+            process.env.NODE_ENV === 'development'
+                ? SITE_URL_LOCAL
+                : SITE_URL || config.siteUrl,
     },
     trailingSlash: 'always',
     plugins: [
-        /**
-         *  Content Plugins
-         */
         {
             resolve: `gatsby-source-filesystem`,
             options: {
@@ -63,8 +43,6 @@ module.exports = {
                 name: `pages`,
             },
         },
-        // Setup for optimised images.
-        // See https://www.gatsbyjs.org/packages/gatsby-image/
         {
             resolve: `gatsby-source-filesystem`,
             options: {
@@ -77,14 +55,11 @@ module.exports = {
         `gatsby-transformer-sharp`,
         {
             resolve: `gatsby-source-ghost`,
-            options:
-                process.env.NODE_ENV === `development`
-                    ? ghostConfig.development
-                    : ghostConfig.production,
+            options: {
+                apiUrl: GHOST_API_URL,
+                contentApiKey: GHOST_CONTENT_API_KEY,
+            },
         },
-        /**
-         *  Utility Plugins
-         */
         {
             resolve: `gatsby-plugin-ghost-manifest`,
             options: {
@@ -174,18 +149,10 @@ module.exports = {
                     }
                 }`,
                 mapping: {
-                    allGhostPost: {
-                        sitemap: `posts`,
-                    },
-                    allGhostTag: {
-                        sitemap: `tags`,
-                    },
-                    allGhostAuthor: {
-                        sitemap: `authors`,
-                    },
-                    allGhostPage: {
-                        sitemap: `pages`,
-                    },
+                    allGhostPost: { sitemap: `posts` },
+                    allGhostTag: { sitemap: `tags` },
+                    allGhostAuthor: { sitemap: `authors` },
+                    allGhostPage: { sitemap: `pages` },
                 },
                 exclude: [
                     `/dev-404-page`,

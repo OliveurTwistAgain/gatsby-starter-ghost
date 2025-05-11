@@ -1,4 +1,5 @@
-# Node template
+# Git files
+.git/
 
 # Logs
 logs
@@ -60,6 +61,12 @@ typings/
 .env
 .env.development
 .env.production
+!.env.example
+
+
+# Local env files
+.ghost.example.json
+.ghost.json
 
 # IDE
 .idea/*
@@ -78,3 +85,8 @@ yarn-error.log
 
 # Local Netlify folder
 .netlify
+
+# structure temporaire
+generate_structure.js
+structure.txt
+

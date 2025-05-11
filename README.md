@@ -1,110 +1,129 @@
-# Gatsby Starter Ghost
+## Sommaire
 
-A starter template to build lightning fast websites with [Ghost](https://ghost.org/) & [Gatsby](https://gatsbyjs.org)
+-   [🚀 Gatsby + Ghost Starter](#-gatsby--ghost-starter)
+-   [🛠 Installation](#-installation)
+-   [🚀 Utilisation](#-utilisation)
+-   [🧪 Variables d'environnement](#-variables-denvironnement)
+-   [🌍 Déploiement](#-déploiement)
+-   [📁 Structure du projet](#-structure-du-projet)
+-   [🧪 Autres commandes utiles](#-autres-commandes-utiles)
+-   [🧠 Optimisation SEO](#-optimisation-seo)
+-   [📝 Licence](#-licence)
 
-**Demo:** https://gatsby.ghost.org/
+# 🚀 Gatsby + Ghost Starter
 
-&nbsp;
+Un starter ultra-rapide pour tester **Ghost en mode Headless CMS** avec un front **Gatsby**, prêt à déployer sur **Netlify** ou autres plateformes.
 
-![gatsby-starter-ghost](https://user-images.githubusercontent.com/120485/50913567-8ab8e380-142c-11e9-9e78-de02ded12fc6.jpg)
+🧪 Ce projet sert à expérimenter un site connecté à Ghost hébergé sur [Pikapods](https://www.pikapods.com/), avec :
 
-&nbsp;
+-   Une structure Gatsby claire
+-   Une gestion de contenu via API Ghost
+-   Un déploiement progressif : local → production
 
+---
 
-# Installing
+## 🛠 Installation
 
 ```bash
-# With Gatsby CLI
-gatsby new gatsby-starter-ghost https://github.com/TryGhost/gatsby-starter-ghost.git
-```
-
-```bash
-# From Source
 git clone https://github.com/TryGhost/gatsby-starter-ghost.git
 cd gatsby-starter-ghost
+yarn install
 ```
 
-Then install dependencies
+## 🚀 Utilisation
 
-```bash
-yarn
-```
-
-&nbsp;
-
-# Running
-
-Start the development server. You now have a Gatsby site pulling content from headless Ghost.
+▶️ Lancer en local
 
 ```bash
 gatsby develop
 ```
 
-By default, the starter will populate content from a default Ghost install located at https://gatsby.ghost.io.
+🧪 Variables d'environnement
+Le starter utilise normalement un fichier .ghost.json, mais pour plus de simplicité et sécurité, on utilisera ici un fichier .env basé sur .env.example à la racine du projet. Ce fichier contient les variables nécessaires pour le bon fonctionnement du site en local et en production.
 
-To use your own install, you will need to edit the `.ghost.json` config file with your credentials. Change the `apiUrl` value to the URL of your Ghost site. For Ghost(Pro) customers, this is the Ghost URL ending in `.ghost.io`, and for people using the self-hosted version of Ghost, it's the same URL used to access your site.
-
-Next, update the `contentApiKey` value to a key associated with the Ghost site. A key can be provided by creating an integration within Ghost Admin. Navigate to Integrations and click "Add new integration". Name the integration appropriately and click create.
-
-Finally, configure your desired URL in `siteConfig.js`, so links (e. g. canonical links) are generated correctly. You can also update other default values, such as `postsPerPage` in this file.
-
-To use this starter without issues, your Ghost installation needs to be at least on version `2.10.0`.
-
-The default Ghost version that is used for this starter is `5.x`. If your Ghost installation is on a lower version, you will need to pass in a `version` property in your `.ghost.json` settings:
-
-**Ghost >=2.10.0 <5.0.0**
-```json
-{
-    "apiUrl": "https://gatsby.ghost.io",
-    "contentApiKey": "9cc5c67c358edfdd81455149d0",
-    "version": "v4.0"
-}
-```
-
-**Ghost >=5.0.0**
-```json
-{
-    "apiUrl": "https://gatsby.ghost.io",
-    "contentApiKey": "9cc5c67c358edfdd81455149d0"
-}
-```
-
-&nbsp;
-
-# Deploying with Netlify
-
-The starter contains three config files specifically for deploying with Netlify. A `netlify.toml` file for build settings, a `/static/_headers` file with default security headers set for all routes, and `/static/_redirects` to set Netlify custom domain redirects.
-
-To deploy to your Netlify account, hit the button below.
-
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/TryGhost/gatsby-starter-ghost)
-
-Content API Keys are generally not considered to be sensitive information, they exist so that they can be changed in the event of abuse; so most people commit it directly to their `.ghost.json` config file. If you prefer to keep this information out of your repository you can remove this config and set [Netlify ENV variables](https://www.netlify.com/docs/continuous-deployment/#build-environment-variables) for production builds instead.
-
-Once deployed, you can set up a [Ghost + Netlify Integration](https://ghost.org/integrations/netlify/) to use deploy hooks from Ghost to trigger Netlify rebuilds. That way, any time data changes in Ghost, your site will rebuild on Netlify.
-
-&nbsp;
-
-# Optimising
-
-You can disable the default Ghost Handlebars Theme front-end by enabling the `Make this site private` flag within your Ghost settings. This enables password protection in front of the Ghost install and sets `<meta name="robots" content="noindex" />` so your Gatsby front-end becomes the source of truth for SEO.
-
-&nbsp;
-
-# Extra options
+Exemple de .env
 
 ```bash
-# Run a production build, locally
+GHOST_API_URL=https://votre-instance.ghost.io
+GHOST_CONTENT_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxx
+SITEURL=http://localhost:8000
+SITEURL_PROD=https://mon-site-en-prod.netlify.app
+```
+
+🚀 Adaptation du code gatsby-config.js
+Le code gatsby-config.js est adapté pour le fonctionnement de ce starter avec les variables d’environnement du projet .env, voir ci-dessus.
+
+💡 Utilisez version: "v4.0" si votre instance Ghost est < 5.x.
+
+🌍 Déploiement
+Ce starter est compatible avec Netlify, sans omettre les autres plateformes comme Vercel, Render, ou Railway.
+
+Netlify
+Fichier netlify.toml inclus ✅
+
+Redirections \_redirects et headers \_headers déjà configurés
+
+💡 Pensez à définir les variables d’environnement dans le dashboard Netlify :
+
+GHOST_API_URL
+GHOST_CONTENT_API_KEY
+
+📁 Structure du projet
+Avec la commande `tree -L 1` dans le terminal WSL Ubuntu, voici les principaux dossiers et fichiers :
+
+```bash
+├── LICENSE # Licence open-source
+├── README.md # Documentation du projet
+├── gatsby-browser.js # Config du comportement global de Gatsby côté client
+├── gatsby-config.js # Fichier central de configuration Gatsby
+├── gatsby-node.js # Hooks de build personnalisés de Gatsby
+├── netlify.toml # Configuration du déploiement sur Netlify
+├── package.json # Dépendances et scripts du projet
+├── package-lock.json # Verrouillage des versions npm
+├── plugins/ # Plugins Gatsby personnalisés
+│ └── gatsby-plugin-ghost-manifest/
+├── renovate.json # Configuration de la mise à jour automatique des deps
+├── src/ # Dossier principal du code source front-end
+│ ├── components/ # Composants réutilisables React
+│ ├── images/ # Images spécifiques au code source
+│ ├── pages/ # Pages de l'application (ex : 404.js)
+│ ├── styles/ # Fichiers CSS
+│ ├── templates/ # Templates de pages dynamiques
+│ └── utils/ # Fonctions utilitaires
+├── static/ # Contenu statique servi tel quel
+│ ├── \_headers # Headers HTTP personnalisés
+│ ├── \_redirects # Redirections Netlify
+│ ├── favicon.ico/png # Icônes
+│ ├── images/ # Images statiques
+│ └── robots.txt # Directive SEO pour les moteurs de recherche
+├── yarn.lock # Verrouillage des versions yarn
+```
+
+🧪 Autres commandes utiles
+
+```bash
+# Build de production
 gatsby build
 
-# Serve a production build, locally
+# Servir la version buildée localement
 gatsby serve
 ```
 
-Gatsby `develop` uses the `development` config in `.ghost.json` - while Gatsby `build` uses the `production` config.
+🧠 Optimisation SEO
+Dans Ghost Admin, activer "Make this site private" :
 
-&nbsp;
+Cela désactive le thème par défaut de Ghost, évite le duplicate content et centralise le SEO sur Gatsby
 
-# Copyright & License
+📝 Licence
+MIT © Ghost Foundation
 
-Copyright (c) 2013-2025 Ghost Foundation - Released under the [MIT license](LICENSE).
+✨ Auteur de cette version : oliveur.twist.again[@]proton.me
+
+🎯 Personnalisé avec un peu de café !
+
+## 🔗 Liens utiles
+
+-   [Documentation officielle Ghost Content API](https://ghost.org/docs/content-api/)
+-   [Gatsby + Ghost Starter (repo original)](https://github.com/TryGhost/gatsby-starter-ghost)
+-   [Pikapods](https://www.pikapods.com/)
+-   [Netlify](https://www.netlify.com/)
