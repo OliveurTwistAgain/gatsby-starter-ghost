@@ -103,9 +103,20 @@ Avec la commande `tree -L 1` dans le terminal WSL Ubuntu, voici les principaux d
 ├── yarn.lock # Verrouillage des versions yarn
 ```
 
+Ou en utilisant le script `generate-structure.js` :
+
+```bash
+node generate-structure.js
+```
+
+qui génère la structure détaillée et commentée du projet et ouvre le fichier généré à la racine : ./structure.txt.
+
 ## 🧪 Autres commandes utiles
 
 ```bash
+# Build de nettoyage du cache
+gatsby clean
+
 # Build de production
 gatsby build
 
@@ -125,7 +136,7 @@ MIT © Ghost Foundation
 
 ✨ Auteur de cette version : oliveur.twist.again[@]proton.me
 
-🎯 Personnalisé avec un peu de café !
+🎯 Personnalisé avec un peu de café... et ce bon vieux Général OAI ! "Bien mon Général" 😉
 
 ## 🔗 Liens utiles
 
